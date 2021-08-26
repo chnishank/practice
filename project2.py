@@ -34,3 +34,4 @@ df.show(10)
 df_rdd = df.rdd
 type(df_rdd)
 df_rdd.count()
+df_rdd.take(1)
