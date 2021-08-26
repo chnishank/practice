@@ -1,6 +1,14 @@
-from pyspark.sql import SparkSession
+from pyspark.context import SparkContext, SparkConf
+from pyspark.sql.context import SQLContext
+from pyspark.sql.session import SparkSession
+
 from pyspark.sql.types import StructType,StringType, IntegerType 
-spark=SparkSession.builder.appName('Spark started').getOrCreate()
+conf = SparkConf().setAppName("rdd basic").setMaster("local[4]")
+
+sc = SparkContext(conf=conf)
+sqlContext = SQLContext(sc)
+spark = SparkSession(sc)
+
 schema = StructType() \
     .add("ID",IntegerType(),True) \
     .add("Name",StringType(),True) \
@@ -17,7 +25,7 @@ schema = StructType() \
     .add("Sport",StringType(),True) \
     .add("Event",StringType(),True) \
     .add("Medal",StringType(),True)
-df= spark.read.format("csv") \
+df= sqlContext.read.format("csv") \
       .option("header", True) \
       .schema(schema) \
       .load("/user/maria_dev/practice/athlete_events.csv")  
