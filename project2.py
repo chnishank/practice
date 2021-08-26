@@ -23,3 +23,6 @@ df= spark.read.format("csv") \
       .load("C:/ajaysir/P2/P2/athlete_events.csv")  
 df.printSchema()
 df.show(10)
+df_rdd = df.rdd
+type(df_rdd)
+df_rdd.count()
